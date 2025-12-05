@@ -25,10 +25,9 @@ def BLAS_AxpyOp : BLAS_Op<"axpy", []> {
   let summary = "Update vector";
   let description = [{}];
 
-  let arguments = (ins AnyFloat:$alpha, AnyMemRef:$x, AnyMemRef:$y, );
+  let arguments = (ins AnyFloat:$alpha, AnyMemRef:$x, AnyMemRef:$y);
 
-  let assemblyFormat =
-      "`(` $alpha `,` $x `,` $y `)` attr-dict `:` type(results)";
+  let assemblyFormat = "`(` $alpha `,` $x `,` $y `)` attr-dict";
 }
 
 //===----------------------------------------------------------------------===//
@@ -39,9 +38,9 @@ def BLAS_ScalOp : BLAS_Op<"scal", []> {
   let summary = "Scale vector";
   let description = [{}];
 
-  let arguments = (ins AnyFloat:$alpha, AnyMemRef:$x, );
+  let arguments = (ins AnyFloat:$alpha, AnyMemRef:$x);
 
-  let assemblyFormat = "`(` $alpha `,` $x `)` attr-dict `:` type(results)";
+  let assemblyFormat = "`(` $alpha `,` $x `)` attr-dict";
 }
 
 //===----------------------------------------------------------------------===//
@@ -52,9 +51,9 @@ def BLAS_CopyOp : BLAS_Op<"copy", []> {
   let summary = "Copy vector";
   let description = [{}];
 
-  let arguments = (ins AnyMemRef:$x, AnyMemRef:$y, );
+  let arguments = (ins AnyMemRef:$x, AnyMemRef:$y);
 
-  let assemblyFormat = "`(` $x `,` $y `)` attr-dict `:` type(results)";
+  let assemblyFormat = "`(` $x `,` $y `)` attr-dict";
 }
 
 //===----------------------------------------------------------------------===//
@@ -65,9 +64,9 @@ def BLAS_SwapOp : BLAS_Op<"swap", []> {
   let summary = "Swap vectors";
   let description = [{}];
 
-  let arguments = (ins AnyMemRef:$x, AnyMemRef:$y, );
+  let arguments = (ins AnyMemRef:$x, AnyMemRef:$y);
 
-  let assemblyFormat = "`(` $x `,` $y `)` attr-dict `:` type(results)";
+  let assemblyFormat = "`(` $x `,` $y `)` attr-dict";
 }
 
 //===----------------------------------------------------------------------===//
@@ -79,9 +78,9 @@ def BLAS_DotOp : BLAS_Op<"dot", [Pure]> {
   let summary = "Dot product";
   let description = [{}];
 
-  let arguments = (ins AnyMemRef:$x, AnyMemRef:$y, );
+  let arguments = (ins AnyMemRef:$x, AnyMemRef:$y);
 
-  let results = (outs AnyFloat:$result, );
+  let results = (outs AnyFloat:$result);
 
   let assemblyFormat = "`(` $x `,` $y `)` attr-dict `:` type(results)";
 }
@@ -94,9 +93,9 @@ def BLAS_DotuOp : BLAS_Op<"dotu", [Pure]> {
   let summary = "Dot product (complex)";
   let description = [{}];
 
-  let arguments = (ins AnyMemRef:$x, AnyMemRef:$y, );
+  let arguments = (ins AnyMemRef:$x, AnyMemRef:$y);
 
-  let results = (outs AnyComplex:$result, );
+  let results = (outs AnyComplex:$result);
 
   let assemblyFormat = "`(` $x `,` $y `)` attr-dict `:` type(results)";
 }
@@ -109,9 +108,9 @@ def BLAS_DotcOp : BLAS_Op<"dotc", [Pure]> {
   let summary = "Dot product (complex conjugate)";
   let description = [{}];
 
-  let arguments = (ins AnyMemRef:$x, AnyMemRef:$y, );
+  let arguments = (ins AnyMemRef:$x, AnyMemRef:$y);
 
-  let results = (outs AnyComplex:$result, );
+  let results = (outs AnyComplex:$result);
 
   let assemblyFormat = "`(` $x `,` $y `)` attr-dict `:` type(results)";
 }
@@ -124,9 +123,9 @@ def BLAS_Nrm2Op : BLAS_Op<"nrm2", [Pure]> {
   let summary = "2-norm";
   let description = [{}];
 
-  let arguments = (ins AnyMemRef:$x, );
+  let arguments = (ins AnyMemRef:$x);
 
-  let results = (outs AnyFloat:$result, );
+  let results = (outs AnyFloat:$result);
 
   let assemblyFormat = "`(` $alpha `,` $x `)` attr-dict `:` type(results)";
 }
@@ -139,9 +138,9 @@ def BLAS_AsumOp : BLAS_Op<"asum", [Pure]> {
   let summary = "1-norm";
   let description = [{}];
 
-  let arguments = (ins AnyMemRef:$x, );
+  let arguments = (ins AnyMemRef:$x);
 
-  let results = (outs AnyFloat:$result, );
+  let results = (outs AnyFloat:$result);
 
   let assemblyFormat = "`(` $x `)` attr-dict `:` type(results)";
 }
@@ -150,13 +149,13 @@ def BLAS_AsumOp : BLAS_Op<"asum", [Pure]> {
 // IamaxOp
 //===----------------------------------------------------------------------===//
 
-def BLAS_IamaxOp : BLAS_Op<"i_amax", [Pure]> {
+def BLAS_IamaxOp : BLAS_Op<"iamax", [Pure]> {
   let summary = "Infinite-norm index";
   let description = [{}];
 
-  let arguments = (ins AnyMemRef:$x, );
+  let arguments = (ins AnyMemRef:$x);
 
-  let results = (outs AnyIndex:$index, );
+  let results = (outs AnyIndex:$index);
 
   let assemblyFormat = "`(` $x `)` attr-dict `:` type(results)";
 }
@@ -170,11 +169,9 @@ def BLAS_RotgOp : BLAS_Op<"rotg", []> {
   let summary = "Generate plane (Given's) rotation";
   let description = [{}];
 
-  let arguments = (ins AnyMemRef:$a, AnyMemRef:$b, AnyMemRef:$c,
-      AnyMemRef:$s, );
+  let arguments = (ins AnyMemRef:$a, AnyMemRef:$b, AnyMemRef:$c, AnyMemRef:$s);
 
-  let assemblyFormat =
-      "`(` $a `,` $b `,` $c `,` $s `)` attr-dict `:` type(results)";
+  let assemblyFormat = "`(` $a `,` $b `,` $c `,` $s `)` attr-dict";
 }
 
 //===----------------------------------------------------------------------===//
@@ -186,11 +183,9 @@ def BLAS_RotOp : BLAS_Op<"rot", []> {
   let summary = "Apply plane rotation";
   let description = [{}];
 
-  let arguments = (ins AnyMemRef:$x, AnyMemRef:$y, AnyMemRef:$c,
-      AnyMemRef:$s, );
+  let arguments = (ins AnyMemRef:$x, AnyMemRef:$y, AnyMemRef:$c, AnyMemRef:$s);
 
-  let assemblyFormat =
-      "`(` $a `,` $b `,` $c `,` $s `)` attr-dict `:` type(results)";
+  let assemblyFormat = "`(` $a `,` $b `,` $c `,` $s `)` attr-dict";
 }
 
 //===----------------------------------------------------------------------===//
@@ -203,10 +198,9 @@ def BLAS_RotmgOp : BLAS_Op<"rotmg", []> {
   let description = [{}];
 
   let arguments = (ins AnyMemRef:$d1, AnyMemRef:$d2, AnyMemRef:$a, AnyMemRef:$b,
-      AnyMemRef:$param, );
+      AnyMemRef:$param);
 
-  let assemblyFormat = "`(` $d1 `,` $d2 `,` $a `,` $b `,` $param `)` attr-dict "
-                       "`:` type(results)";
+  let assemblyFormat = "`(` $d1 `,` $d2 `,` $a `,` $b `,` $param `)` attr-dict";
 }
 
 //===----------------------------------------------------------------------===//
@@ -218,10 +212,9 @@ def BLAS_RotmOp : BLAS_Op<"rotm", []> {
   let summary = "Apply modified plane rotation";
   let description = [{}];
 
-  let arguments = (ins AnyMemRef:$x, AnyMemRef:$y, AnyMemRef:$param, );
+  let arguments = (ins AnyMemRef:$x, AnyMemRef:$y, AnyMemRef:$param);
 
-  let assemblyFormat =
-      "`(` $x `,` $y `,` $param `)` attr-dict `:` type(results)";
+  let assemblyFormat = "`(` $x `,` $y `,` $param `)` attr-dict";
 }
 
 // Level 2 BLAS (matrix-vector) Operations
@@ -235,14 +228,14 @@ def BLAS_GemvOp : BLAS_Op<"gemv", []> {
   let description = [{}];
 
   let arguments = (ins BLAS_TransposeAttr:$trans, AnyFloat:$alpha, AnyMemRef:$A,
-      AnyMemRef:$x, AnyFloat:$beta, AnyMemRef:$y, );
+      AnyMemRef:$x, AnyFloat:$beta, AnyMemRef:$y);
 
   let assemblyFormat = "`(` $alpha `,` $A `,` $x `,` $beta `,` $y `)` "
-                       "attr-dict `:` type(results)";
+                       "attr-dict";
 }
 
 //===----------------------------------------------------------------------===//
-// SemvOp
+// SymvOp
 //===----------------------------------------------------------------------===//
 
 def BLAS_SymvOp : BLAS_Op<"semv", []> {
@@ -250,10 +243,10 @@ def BLAS_SymvOp : BLAS_Op<"semv", []> {
   let description = [{}];
 
   let arguments = (ins BLAS_UploAttr:$uplo, AnyFloat:$alpha, AnyMemRef:$A,
-      AnyMemRef:$x, AnyFloat:$beta, AnyMemRef:$y, );
+      AnyMemRef:$x, AnyFloat:$beta, AnyMemRef:$y);
 
   let assemblyFormat = "`(` $alpha `,` $A `,` $x `,` $beta `,` $y `)` "
-                       "attr-dict `:` type(results)";
+                       "attr-dict";
 }
 
 //===----------------------------------------------------------------------===//
@@ -265,10 +258,10 @@ def BLAS_HemvOp : BLAS_Op<"hemv", []> {
   let description = [{}];
 
   let arguments = (ins BLAS_UploAttr:$uplo, AnyFloat:$alpha, AnyMemRef:$A,
-      AnyMemRef:$x, AnyFloat:$beta, AnyMemRef:$y, );
+      AnyMemRef:$x, AnyFloat:$beta, AnyMemRef:$y);
 
   let assemblyFormat = "`(` $alpha `,` $A `,` $x `,` $beta `,` $y `)` "
-                       "attr-dict `:` type(results)";
+                       "attr-dict";
 }
 
 //===----------------------------------------------------------------------===//
@@ -280,10 +273,9 @@ def BLAS_TrmvOp : BLAS_Op<"trmv", []> {
   let description = [{}];
 
   let arguments = (ins BLAS_UploAttr:$uplo, BLAS_TransposeAttr:$trans,
-      BLAS_DiagAttr:$diag, AnyFloat:$alpha, AnyMemRef:$A, AnyMemRef:$x, );
+      BLAS_DiagAttr:$diag, AnyFloat:$alpha, AnyMemRef:$A, AnyMemRef:$x);
 
-  let assemblyFormat =
-      "`(` $alpha `,` $A `,` $x `)` attr-dict `:` type(results)";
+  let assemblyFormat = "`(` $alpha `,` $A `,` $x `)` attr-dict";
 }
 
 //===----------------------------------------------------------------------===//
@@ -295,10 +287,9 @@ def BLAS_TrsvOp : BLAS_Op<"trsv", []> {
   let description = [{}];
 
   let arguments = (ins BLAS_UploAttr:$uplo, BLAS_TransposeAttr:$trans,
-      BLAS_DiagAttr:$diag, AnyFloat:$alpha, AnyMemRef:$A, AnyMemRef:$x, );
+      BLAS_DiagAttr:$diag, AnyFloat:$alpha, AnyMemRef:$A, AnyMemRef:$x);
 
-  let assemblyFormat =
-      "`(` $alpha `,` $A `,` $x `)` attr-dict `:` type(results)";
+  let assemblyFormat = "`(` $alpha `,` $A `,` $x `)` attr-dict";
 }
 
 //===----------------------------------------------------------------------===//
@@ -310,10 +301,9 @@ def BLAS_GerOp : BLAS_Op<"ger", []> {
   let description = [{}];
 
   let arguments = (ins AnyFloat:$alpha, AnyMemRef:$x, AnyMemRef:$y,
-      AnyMemRef:$A, );
+      AnyMemRef:$A);
 
-  let assemblyFormat =
-      "`(` $alpha `,` $x `,` $y `,` $A `)` attr-dict `:` type(results)";
+  let assemblyFormat = "`(` $alpha `,` $x `,` $y `,` $A `)` attr-dict";
 }
 
 //===----------------------------------------------------------------------===//
@@ -325,10 +315,9 @@ def BLAS_GeruOp : BLAS_Op<"geru", []> {
   let description = [{}];
 
   let arguments = (ins AnyFloat:$alpha, AnyMemRef:$x, AnyMemRef:$y,
-      AnyMemRef:$A, );
+      AnyMemRef:$A);
 
-  let assemblyFormat =
-      "`(` $alpha `,` $x `,` $y `,` $A `)` attr-dict `:` type(results)";
+  let assemblyFormat = "`(` $alpha `,` $x `,` $y `,` $A `)` attr-dict";
 }
 
 //===----------------------------------------------------------------------===//
@@ -340,10 +329,9 @@ def BLAS_GercOp : BLAS_Op<"gerc", []> {
   let description = [{}];
 
   let arguments = (ins AnyFloat:$alpha, AnyMemRef:$x, AnyMemRef:$y,
-      AnyMemRef:$A, );
+      AnyMemRef:$A);
 
-  let assemblyFormat =
-      "`(` $alpha `,` $x `,` $y `,` $A `)` attr-dict `:` type(results)";
+  let assemblyFormat = "`(` $alpha `,` $x `,` $y `,` $A `)` attr-dict";
 }
 
 //===----------------------------------------------------------------------===//
@@ -355,10 +343,9 @@ def BLAS_SyrOp : BLAS_Op<"syr", []> {
   let description = [{}];
 
   let arguments = (ins BLAS_UploAttr:$uplo, AnyFloat:$alpha, AnyMemRef:$x,
-      AnyMemRef:$A, );
+      AnyMemRef:$A);
 
-  let assemblyFormat =
-      "`(` $alpha `,` $x `,` $A `)` attr-dict `:` type(results)";
+  let assemblyFormat = "`(` $alpha `,` $x `,` $A `)` attr-dict";
 }
 
 //===----------------------------------------------------------------------===//
@@ -370,10 +357,9 @@ def BLAS_HerOp : BLAS_Op<"her", []> {
   let description = [{}];
 
   let arguments = (ins BLAS_UploAttr:$uplo, AnyFloat:$alpha, AnyMemRef:$x,
-      AnyMemRef:$A, );
+      AnyMemRef:$A);
 
-  let assemblyFormat =
-      "`(` $alpha `,` $x `,` $A `)` attr-dict `:` type(results)";
+  let assemblyFormat = "`(` $alpha `,` $x `,` $A `)` attr-dict";
 }
 
 //===----------------------------------------------------------------------===//
@@ -385,10 +371,9 @@ def BLAS_Syr2Op : BLAS_Op<"syr2", []> {
   let description = [{}];
 
   let arguments = (ins BLAS_UploAttr:$uplo, AnyFloat:$alpha, AnyMemRef:$x,
-      AnyMemRef:$y, AnyMemRef:$A, );
+      AnyMemRef:$y, AnyMemRef:$A);
 
-  let assemblyFormat =
-      "`(` $alpha `,` $x `,` $y `,` $A `)` attr-dict `:` type(results)";
+  let assemblyFormat = "`(` $alpha `,` $x `,` $y `,` $A `)` attr-dict";
 }
 
 //===----------------------------------------------------------------------===//
@@ -400,10 +385,9 @@ def BLAS_Her2Op : BLAS_Op<"her2", []> {
   let description = [{}];
 
   let arguments = (ins BLAS_UploAttr:$uplo, AnyFloat:$alpha, AnyMemRef:$x,
-      AnyMemRef:$y, AnyMemRef:$A, );
+      AnyMemRef:$y, AnyMemRef:$A);
 
-  let assemblyFormat =
-      "`(` $alpha `,` $x `,` $y `,` $A `)` attr-dict `:` type(results)";
+  let assemblyFormat = "`(` $alpha `,` $x `,` $y `,` $A `)` attr-dict";
 }
 
 // Level 3 BLAS (matrix-matrix) Operations
@@ -431,7 +415,7 @@ def BLAS_GemmOp : BLAS_Op<"gemm", []> {
       AnyMemRef:$C);
 
   let assemblyFormat = "`(` $alpha `,` $A `,` $B `,` $beta `,` $C `)` "
-                       "attr-dict `:` type(results)";
+                       "attr-dict";
 }
 
 //===----------------------------------------------------------------------===//
@@ -447,7 +431,7 @@ def BLAS_GemmtrOp : BLAS_Op<"gemmtr", []> {
       AnyFloat:$beta, AnyMemRef:$C);
 
   let assemblyFormat = "`(` $alpha `,` $A `,` $B `,` $beta `,` $C `)` "
-                       "attr-dict `:` type(results)";
+                       "attr-dict";
 }
 
 //===----------------------------------------------------------------------===//
@@ -463,7 +447,7 @@ def BLAS_SymmOp : BLAS_Op<"symm", []> {
       AnyMemRef:$C);
 
   let assemblyFormat = "`(` $alpha `,` $A `,` $B `,` $beta `,` $C `)` "
-                       "attr-dict `:` type(results)";
+                       "attr-dict";
 }
 
 //===----------------------------------------------------------------------===//
@@ -479,7 +463,7 @@ def BLAS_HemmOp : BLAS_Op<"hemm", []> {
       AnyMemRef:$A, AnyMemRef:$B, AnyFloat:$beta, AnyMemRef:$C);
 
   let assemblyFormat = "`(` $alpha `,` $A `,` $B `,` $beta `,` $C `)` "
-                       "attr-dict `:` type(results)";
+                       "attr-dict";
 }
 
 //===----------------------------------------------------------------------===//
@@ -492,10 +476,9 @@ def BLAS_TrmmOp : BLAS_Op<"trmm", []> {
 
   let arguments = (ins BLAS_SideAttr:$side, BLAS_UploAttr:$uplo,
       BLAS_TransposeAttr:$transA, BLAS_DiagAttr:$diag, AnyFloat:$alpha,
-      AnyMemRef:$A, AnyMemRef:$B, );
+      AnyMemRef:$A, AnyMemRef:$B);
 
-  let assemblyFormat =
-      "`(` $alpha `,` $A `,` $B `)` attr-dict `:` type(results)";
+  let assemblyFormat = "`(` $alpha `,` $A `,` $B `)` attr-dict";
 }
 
 //===----------------------------------------------------------------------===//
@@ -508,10 +491,9 @@ def BLAS_TrsmOp : BLAS_Op<"trsm", []> {
 
   let arguments = (ins BLAS_SideAttr:$side, BLAS_UploAttr:$uplo,
       BLAS_TransposeAttr:$transA, BLAS_DiagAttr:$diag, AnyFloat:$alpha,
-      AnyMemRef:$A, AnyMemRef:$B, );
+      AnyMemRef:$A, AnyMemRef:$B);
 
-  let assemblyFormat =
-      "`(` $alpha `,` $A `,` $B `)` attr-dict `:` type(results)";
+  let assemblyFormat = "`(` $alpha `,` $A `,` $B `)` attr-dict";
 }
 
 //===----------------------------------------------------------------------===//
@@ -523,10 +505,9 @@ def BLAS_SyrkOp : BLAS_Op<"syrk", []> {
   let description = [{}];
 
   let arguments = (ins BLAS_UploAttr:$uplo, BLAS_TransposeAttr:$trans,
-      AnyFloat:$alpha, AnyMemRef:$A, AnyFloat:$beta, AnyMemRef:$C, );
+      AnyFloat:$alpha, AnyMemRef:$A, AnyFloat:$beta, AnyMemRef:$C);
 
-  let assemblyFormat =
-      "`(` $alpha `,` $A `,` $beta `,` $C `)` attr-dict `:` type(results)";
+  let assemblyFormat = "`(` $alpha `,` $A `,` $beta `,` $C `)` attr-dict";
 }
 
 //===----------------------------------------------------------------------===//
@@ -538,10 +519,9 @@ def BLAS_HerkOp : BLAS_Op<"herk", []> {
   let description = [{}];
 
   let arguments = (ins BLAS_UploAttr:$uplo, BLAS_TransposeAttr:$trans,
-      AnyFloat:$alpha, AnyMemRef:$A, AnyFloat:$beta, AnyMemRef:$C, );
+      AnyFloat:$alpha, AnyMemRef:$A, AnyFloat:$beta, AnyMemRef:$C);
 
-  let assemblyFormat =
-      "`(` $alpha `,` $A `,` $beta `,` $C `)` attr-dict `:` type(results)";
+  let assemblyFormat = "`(` $alpha `,` $A `,` $beta `,` $C `)` attr-dict";
 }
 
 //===----------------------------------------------------------------------===//
@@ -554,10 +534,9 @@ def BLAS_Syr2kOp : BLAS_Op<"syr2k", []> {
 
   let arguments = (ins BLAS_UploAttr:$uplo, BLAS_TransposeAttr:$trans,
       AnyFloat:$alpha, AnyMemRef:$A, AnyMemRef:$B, AnyFloat:$beta,
-      AnyMemRef:$C, );
+      AnyMemRef:$C);
 
-  let assemblyFormat =
-      "`(` $alpha `,` $A `,` $beta `,` $C `)` attr-dict `:` type(results)";
+  let assemblyFormat = "`(` $alpha `,` $A `,` $beta `,` $C `)` attr-dict";
 }
 
 //===----------------------------------------------------------------------===//
@@ -570,10 +549,9 @@ def BLAS_Her2kOp : BLAS_Op<"her2k", []> {
 
   let arguments = (ins BLAS_UploAttr:$uplo, BLAS_TransposeAttr:$trans,
       AnyFloat:$alpha, AnyMemRef:$A, AnyMemRef:$B, AnyFloat:$beta,
-      AnyMemRef:$C, );
+      AnyMemRef:$C);
 
-  let assemblyFormat =
-      "`(` $alpha `,` $A `,` $beta `,` $C `)` attr-dict `:` type(results)";
+  let assemblyFormat = "`(` $alpha `,` $A `,` $beta `,` $C `)` attr-dict";
 }
 
 #endif // BLAS_MLIR_IR_BLASOPS_TD
