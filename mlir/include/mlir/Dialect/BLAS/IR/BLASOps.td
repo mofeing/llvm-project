@@ -155,7 +155,7 @@ def BLAS_IamaxOp : BLAS_Op<"iamax", [Pure]> {
 
   let arguments = (ins AnyMemRef:$x);
 
-  let results = (outs AnyIndex:$index);
+  let results = (outs Index:$index);
 
   let assemblyFormat = "`(` $x `)` attr-dict `:` type(results)";
 }

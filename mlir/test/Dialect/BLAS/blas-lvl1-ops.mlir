@@ -12,7 +12,7 @@ func.func @blas_lvl1_real_test(%alpha : f32, %x : memref<100xf32>, %y : memref<1
 
     %b = blas.nrm2(%x) : f32
     %c = blas.asum(%x) : f32
-    %d = blas.iamax(%x) : index<i32>
+    %d = blas.iamax(%x) : index
 
     func.return
 }
@@ -30,7 +30,7 @@ func.func @blas_lvl1_complex_test(%alpha : complex<f32>, %x : memref<100xcomplex
 
     %c = blas.nrm2(%x) : complex<f32>
     %d = blas.asum(%x) : complex<f32>
-    %e = blas.iamax(%x) : index<i32>
+    %e = blas.iamax(%x) : index
 
     // TODO rotg, rot, rotmg, rotm
 
